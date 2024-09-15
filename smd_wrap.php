@@ -286,7 +286,7 @@ function smd_wrap($atts, $thing = NULL)
                             $nd = (is_numeric($out)) ? $out : strtotime($out);
 
                             if ($nd !== false) {
-                                $out = strftime($xform[0], $nd);
+                                $out = safe_strftime($xform[0], $nd);
                             }
 
                             break;
@@ -448,9 +448,8 @@ function smd_wrap($atts, $thing = NULL)
 
                             break;
                         case 'textile':
-                            include_once txpath.'/lib/classTextile.php';
-                            $textile = new Textile();
-                            $out = $textile->TextileThis($out);
+                            $textile = new \Textpattern\Textile\Parser();
+                            $out = $textile->parse($out);
 
                             break;
                         case 'trim':
